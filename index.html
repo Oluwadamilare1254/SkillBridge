@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillBridge — Train. Build. Get Hired.</title>
+<meta name="description" content="Nigeria's talent pipeline. Professional skills training that ends with a job — not just a certificate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =====================
+   RESET & BASE
+   ===================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy:        #0A1628;
+  --navy-mid:    #122040;
+  --navy-light:  #1A3055;
+  --amber:       #F5A623;
+  --amber-light: #FFC65A;
+  --amber-pale:  #FFF4E0;
+  --cream:       #F7F4EF;
+  --white:       #FFFFFF;
+  --slate:       #4A5568;
+  --slate-light: #718096;
+  --slate-pale:  #EDF2F7;
+  --border:      #E2E8F0;
+  --green:       #10B981;
+  --green-pale:  #ECFDF5;
+  --red:         #EF4444;
+  --red-pale:    #FEF2F2;
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--navy);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-body); cursor: pointer; }
+input, select, textarea { font-family: var(--font-body); }
+img { max-width: 100%; display: block; }
+
+/* =====================
+   UTILITY CLASSES
+   ===================== */
+.hidden { display: none !important; }
+.text-amber { color: var(--amber); }
+.text-green { color: var(--green); }
+.text-slate  { color: var(--slate); }
+.text-muted  { color: var(--slate-light); }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.font-display { font-family: var(--font-display); }
+
+/* =====================
+   NAVIGATION
+   ===================== */
+.navbar {
+  background: var(--navy);
+  height: 64px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-logo-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--amber);
+  border-radius: 50%;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+.nav-link:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--amber);
+  color: var(--navy);
+  border: none;
+  padding: 9px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: var(--navy-mid);
+  padding: 1.5rem 2rem;
+  z-index: 190;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu .nav-link {
+  text-align: left;
+  padding: 8px 0;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.mobile-menu .nav-cta {
+  margin-top: 0.5rem;
+  text-align: center;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+/* =====================
+   PAGE SYSTEM
+   ===================== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* =====================
+   LANDING — HERO
+   ===================== */
+.hero {
+  background: var(--navy);
+  padding: 5rem 2rem 4.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-circle-1 {
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 500px; height: 500px;
+  background: rgba(245,166,35,0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-bg-circle-2 {
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 350px; height: 350px;
+  background: rgba(245,166,35,0.04);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(245,166,35,0.15);
+  color: var(--amber);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.12;
+  margin-bottom: 1.25rem;
+}
+.hero h1 .highlight { color: var(--amber); }
+
+.hero-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: clamp(0.95rem, 2vw, 1.0625rem);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+
+.btn-primary {
+  background: var(--amber);
+  color: var(--navy);
+  border: none;
+  padding: 14px 30px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  padding: 14px 30px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); }
+
+/* Pipeline */
+.pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  row-gap: 1.25rem;
+}
+.pipe-step { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; min-width: 90px; }
+.pipe-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem;
+}
+.pipe-icon.learn  { background: rgba(245,166,35,0.2); }
+.pipe-icon.build  { background: rgba(16,185,129,0.2); }
+.pipe-icon.cert   { background: rgba(99,102,241,0.2); }
+.pipe-icon.hired  { background: rgba(245,166,35,0.3); }
+.pipe-label { font-size: 0.8125rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+.pipe-sub   { font-size: 0.6875rem; color: rgba(255,255,255,0.4); text-align: center; }
+.pipe-arrow { color: rgba(255,255,255,0.2); font-size: 1.25rem; flex-shrink: 0; }
+
+/* =====================
+   STATS BAR
+   ===================== */
+.stats-bar {
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.stat-item {
+  padding: 1.75rem 3rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  flex: 1;
+  min-width: 130px;
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.stat-lbl { font-size: 0.75rem; color: var(--slate-light); margin-top: 3px; }
+
+/* =====================
+   SECTION WRAPPER
+   ===================== */
+.section-wrap { padding: 5rem 2rem; }
+.section-wrap.bg-white { background: var(--white); }
+.section-wrap.bg-navy  { background: var(--navy); }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.375rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+.section-title.on-dark { color: var(--white); }
+.section-sub {
+  color: var(--slate);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  max-width: 540px;
+}
+
+/* =====================
+   SKILL TRACKS GRID
+   ===================== */
+.tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+.track-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.track-card:hover {
+  border-color: var(--amber);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(245,166,35,0.12);
+}
+.track-icon  { font-size: 2rem; margin-bottom: 1rem; display: block; }
+.track-name  { font-family: var(--font-display); font-size: 0.9375rem; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.track-meta  { font-size: 0.8rem; color: var(--slate-light); }
+.track-badge {
+  display: inline-block;
+  background: var(--amber-pale);
+  color: #92500A;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 100px;
+  margin-top: 0.875rem;
+}
+.track-badge.green { background: var(--green-pale); color: #065F46; }
+.track-badge.purple { background: #EEF2FF; color: #4338CA; }
+
+/* =====================
+   HOW IT WORKS
+   ===================== */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.how-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+.how-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--amber);
+  opacity: 0.35;
+  line-height: 1;
+  margin-bottom: 0.875rem;
+}
+.how-title { font-weight: 600; font-size: 0.9375rem; color: var(--navy); margin-bottom: 0.5rem; }
+.how-desc  { font-size: 0.875rem; color: var(--slate); line-height: 1.65; }
+
+/* =====================
+   TESTIMONIALS
+   ===================== */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+.testi-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+.testi-quote {
+  color: rgba(255,255,255,0.78);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  flex-shrink: 0;
+}
+.testi-name { font-weight: 600; color: var(--white); font-size: 0.875rem; }
+.testi-role { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* =====================
+   EMPLOYER CTA BANNER
+   ===================== */
+.emp-cta-banner {
+  background: var(--amber-pale);
+  border: 1px solid rgba(245,166,35,0.3);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 3rem auto;
+}
+.emp-cta-banner h2 {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+.emp-cta-banner p { color: var(--slate); font-size: 0.9375rem; line-height: 1.65; max-width: 420px; }
+
+.btn-navy {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 14px 30px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.btn-navy:hover { background: var(--navy-light); transform: translateY(-1px); }
+
+/* =====================
+   FOOTER
+   ===================== */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.5);
+  padding: 3rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, 1fr);
+  gap: 2rem;
+}
+.footer-brand p { font-size: 0.875rem; line-height: 1.65; margin-top: 0.75rem; max-width: 260px; }
+.footer-col h4 { color: var(--white); font-weight: 600; font-size: 0.875rem; margin-bottom: 1rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.625rem; }
+.footer-col ul li a { font-size: 0.875rem; cursor: pointer; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom {
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8125rem;
+}
+.footer-bottom a { cursor: pointer; transition: color 0.2s; }
+.footer-bottom a:hover { color: var(--white); }
+
+/* =====================
+   AUTH PAGES
+   ===================== */
+.auth-wrap {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: var(--cream);
+}
+.auth-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+}
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--slate-light);
+  cursor: pointer;
+  margin-bottom: 1.75rem;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+}
+.auth-back:hover { color: var(--navy); }
+.auth-title { font-family: var(--font-display); font-size: 1.625rem; font-weight: 700; color: var(--navy); margin-bottom: 0.375rem; }
+.auth-sub   { color: var(--slate); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem; }
+
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  background: var(--slate-pale);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 1.75rem;
+}
+.role-tab {
+  padding: 9px 4px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.role-tab.active {
+  background: var(--white);
+  color: var(--navy);
+  font-weight: 600;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+}
+
+.form-group { margin-bottom: 1.125rem; }
+.form-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--navy);
+  background: var(--white);
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus { border-color: var(--amber); }
+.form-input::placeholder { color: var(--slate-light); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-hint { font-size: 0.75rem; color: var(--slate-light); margin-top: 5px; }
+
+.btn-full {
+  width: 100%;
+  padding: 13px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.75rem;
+}
+.btn-full:hover { background: var(--navy-light); }
+
+.auth-switch {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--slate);
+}
+.auth-switch a { color: var(--navy); font-weight: 600; cursor: pointer; }
+.forgot-link {
+  text-align: right;
+  margin-bottom: 1.25rem;
+  margin-top: -0.5rem;
+}
+.forgot-link a { font-size: 0.8125rem; color: var(--slate-light); cursor: pointer; }
+.forgot-link a:hover { color: var(--navy); }
+
+/* =====================
+   DASHBOARD LAYOUT
+   ===================== */
+.dashboard-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: calc(100vh - 64px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+.sidebar-user {
+  padding: 0 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.75rem;
+}
+.sidebar-avatar {
+  width: 46px; height: 46px;
+  background: var(--navy);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.sidebar-avatar.amber { background: var(--amber); color: var(--navy); }
+.sidebar-name { font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+.sidebar-role { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+
+.sidebar-section {
+  padding: 0.875rem 1.25rem 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--slate-light);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+.sidebar-nav { list-style: none; }
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.sidebar-nav li a:hover { background: var(--slate-pale); color: var(--navy); }
+.sidebar-nav li a.active {
+  background: var(--amber-pale);
+  color: #92500A;
+  border-left-color: var(--amber);
+  font-weight: 600;
+}
+.sidebar-nav li a .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+/* MAIN CONTENT AREA */
+.main-area {
+  background: var(--cream);
+  padding: 2rem;
+  overflow-y: auto;
+  min-width: 0;
+}
+.main-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.main-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.main-header p { color: var(--slate); font-size: 0.9rem; margin-top: 4px; line-height: 1.5; }
+
+/* =====================
+   METRIC CARDS
+   ===================== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.metric-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+.metric-label { font-size: 0.75rem; color: var(--slate-light); font-weight: 500; margin-bottom: 6px; }
+.metric-value {
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+.metric-change { font-size: 0.75rem; margin-top: 5px; font-weight: 500; }
+.metric-change.up    { color: var(--green); }
+.metric-change.warn  { color: var(--amber); }
+.metric-change.muted { color: var(--slate-light); }
+
+/* =====================
+   CONTENT GRID
+   ===================== */
+.content-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
+.col-main { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+.col-side { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+
+/* =====================
+   CARD
+   ===================== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.card-title span.sub { font-size: 0.75rem; font-weight: 400; color: var(--slate-light); margin-left: 4px; }
+.card-title a { font-size: 0.8125rem; font-weight: 500; color: var(--amber); cursor: pointer; white-space: nowrap; }
+
+/* =====================
+   COURSE BLOCK
+   ===================== */
+.course-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.course-block:last-of-type { margin-bottom: 0; }
+.course-header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.course-thumb {
+  width: 50px; height: 50px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.375rem;
+  flex-shrink: 0;
+}
+.course-thumb.dm   { background: #FFF4E0; }
+.course-thumb.da   { background: var(--green-pale); }
+.course-thumb.wd   { background: #EEF2FF; }
+.course-thumb.ux   { background: #FFF0F6; }
+.course-info { flex: 1; min-width: 0; }
+.course-name { font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+.course-tutor { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+.progress-bar { height: 6px; background: var(--slate-pale); border-radius: 100px; margin-top: 10px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 100px; background: var(--amber); transition: width 0.5s ease; }
+.progress-fill.green  { background: var(--green); }
+.progress-fill.purple { background: #6366F1; }
+.course-pct { font-size: 0.75rem; color: var(--slate-light); margin-top: 5px; }
+.continue-btn {
+  display: block;
+  width: calc(100% - 2.5rem);
+  margin: 0 1.25rem 1.25rem;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+.continue-btn:hover { background: var(--navy-light); }
+
+/* =====================
+   MODULE LIST
+   ===================== */
+.module-list { list-style: none; }
+.module-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.module-item:last-child { border-bottom: none; }
+.module-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+.module-check.done   { background: var(--green); border-color: var(--green); color: var(--white); }
+.module-check.active { border-color: var(--amber); background: var(--amber-pale); }
+.module-name { font-size: 0.8125rem; color: var(--navy); flex: 1; }
+.module-name.done { color: var(--slate-light); text-decoration: line-through; }
+.module-name.locked { color: var(--slate-light); }
+.module-dur { font-size: 0.75rem; color: var(--slate-light); white-space: nowrap; }
+
+/* =====================
+   CERTIFICATE SHELF
+   ===================== */
+.cert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, #FFF4E0 0%, #FFFBF0 100%);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+}
+.cert-badge {
+  width: 42px; height: 42px;
+  background: var(--amber);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+.cert-name  { font-weight: 600; font-size: 0.8125rem; color: var(--navy); }
+.cert-date  { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+.cert-score {
+  margin-left: auto;
+  background: var(--green-pale);
+  color: #065F46;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.cert-locked {
+  background: var(--amber-pale);
+  border: 1px dashed rgba(245,166,35,0.5);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cert-locked-title { font-size: 0.8125rem; font-weight: 600; color: #92500A; }
+.cert-locked-sub   { font-size: 0.75rem; color: var(--amber); margin-top: 2px; }
+
+/* =====================
+   JOB LISTINGS
+   ===================== */
+.job-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.job-item:last-child { border-bottom: none; }
+.job-logo {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--slate-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--slate);
+  flex-shrink: 0;
+}
+.job-title   { font-weight: 600; font-size: 0.875rem; color: var(--navy); }
+.job-company { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+.job-tags    { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+.job-tag {
+  background: var(--slate-pale);
+  color: var(--slate);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.job-tag.match { background: var(--green-pale); color: #065F46; }
+.apply-btn {
+  margin-left: auto;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: center;
+  transition: background 0.2s;
+}
+.apply-btn:hover { background: var(--navy-light); }
+.apply-btn.applied {
+  background: var(--green-pale);
+  color: #065F46;
+  cursor: default;
+}
+
+/* =====================
+   UPCOMING DEADLINES
+   ===================== */
+.upcoming-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.upcoming-item:last-child { border-bottom: none; }
+.upcoming-date {
+  width: 44px; height: 44px;
+  background: var(--amber-pale);
+  border-radius: var(--radius-sm);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.upcoming-day { font-family: var(--font-display); font-size: 1.0625rem; font-weight: 700; color: #92500A; line-height: 1; }
+.upcoming-mon { font-size: 0.5625rem; font-weight: 600; color: var(--amber); text-transform: uppercase; margin-top: 1px; }
+.upcoming-title  { font-weight: 600; font-size: 0.8125rem; color: var(--navy); }
+.upcoming-course { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+.upcoming-badge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 100px;
+  margin-top: 5px;
+  display: inline-block;
+}
+.upcoming-badge.due    { background: var(--red-pale);  color: var(--red); }
+.upcoming-badge.quiz   { background: #EEF2FF; color: #4338CA; }
+.upcoming-badge.assign { background: var(--amber-pale); color: #92500A; }
+
+/* =====================
+   EMPLOYER DASHBOARD
+   ===================== */
+.emp-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Candidate cards */
+.cand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.cand-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cand-card:hover {
+  border-color: rgba(245,166,35,0.4);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.cand-header { display: flex; align-items: flex-start; gap: 12px; }
+.cand-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.cand-name { font-weight: 600; font-size: 0.9rem; color: var(--navy); }
+.cand-location { font-size: 0.75rem; color: var(--slate-light); margin-top: 2px; }
+.cand-status {
+  margin-left: auto;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.cand-status.verified { background: var(--green-pale);  color: #065F46; }
+.cand-status.pending  { background: var(--amber-pale); color: #92500A; }
+
+.skill-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.skill-pill {
+  background: var(--slate-pale);
+  color: var(--slate);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.score-row { display: flex; align-items: center; gap: 10px; }
+.score-bar-bg { flex: 1; height: 6px; background: var(--slate-pale); border-radius: 100px; overflow: hidden; }
+.score-bar-fill { height: 100%; background: var(--green); border-radius: 100px; }
+.score-num { font-size: 0.75rem; font-weight: 600; color: var(--navy); white-space: nowrap; }
+.score-label { font-size: 0.75rem; color: var(--slate-light); }
+
+.cand-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.btn-outline {
+  padding: 8px 12px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.btn-outline:hover { border-color: var(--navy); }
+.btn-solid {
+  padding: 8px 12px;
+  background: var(--navy);
+  border: 1.5px solid var(--navy);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+}
+.btn-solid:hover { background: var(--navy-light); }
+.btn-solid.disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* Job posts table */
+.jobs-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+.jobs-table th { font-size: 0.75rem; font-weight: 600; color: var(--slate-light); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.jobs-table td { font-size: 0.8125rem; padding: 12px; border-bottom: 1px solid var(--border); color: var(--navy); }
+.jobs-table tr:last-child td { border-bottom: none; }
+.jobs-table tr:hover td { background: var(--slate-pale); }
+.status-pill { display: inline-block; font-size: 0.6875rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.status-pill.open   { background: var(--green-pale); color: #065F46; }
+.status-pill.closed { background: var(--slate-pale); color: var(--slate); }
+.status-pill.draft  { background: var(--amber-pale); color: #92500A; }
+
+/* =====================
+   RESPONSIVE — TABLET
+   ===================== */
+@media (max-width: 900px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .col-side { flex-direction: row; flex-wrap: wrap; }
+  .col-side .card { flex: 1; min-width: 260px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* =====================
+   RESPONSIVE — MOBILE
+   ===================== */
+@media (max-width: 680px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero { padding: 3.5rem 1.25rem 3rem; }
+  .pipeline { padding: 1.25rem 1rem; }
+  .pipe-arrow { display: none; }
+
+  .stats-bar { flex-direction: column; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:last-child { border-bottom: none; }
+
+  .section-wrap { padding: 3rem 1.25rem; }
+
+  .dashboard-wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-area { padding: 1.25rem; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .cand-grid { grid-template-columns: 1fr; }
+  .emp-metrics { grid-template-columns: repeat(2, 1fr); }
+
+  .footer-inner { grid-template-columns: 1fr; }
+  .emp-cta-banner { text-align: center; }
+  .emp-cta-banner p { margin: 0 auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================== NAVBAR ======================== -->
+<nav class="navbar">
+  <div class="nav-logo" onclick="showPage('landing')">
+    <span class="nav-logo-dot"></span>
+    SkillBridge
+  </div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="showPage('landing')">Courses</button>
+    <button class="nav-link" onclick="showPage('employer-dash')">For Employers</button>
+    <button class="nav-link" onclick="showPage('login')">Log in</button>
+    <button class="nav-cta"  onclick="showPage('register')">Get started</button>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="nav-link" onclick="showPage('landing');closeMobileMenu()">Courses</button>
+  <button class="nav-link" onclick="showPage('employer-dash');closeMobileMenu()">For Employers</button>
+  <button class="nav-link" onclick="showPage('login');closeMobileMenu()">Log in</button>
+  <button class="nav-cta"  onclick="showPage('register');closeMobileMenu()">Get started →</button>
+</div>
+
+<!-- ======================== LANDING ======================== -->
+<div id="page-landing" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-circle-1"></div>
+    <div class="hero-bg-circle-2"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Nigeria's Talent Pipeline</span>
+      <h1>Train. Build. Get <span class="highlight">Hired.</span></h1>
+      <p class="hero-sub">Professional skills training that ends with a job — not just a certificate. Learn from experts, build a real portfolio, and connect directly with employers who trust our graduates.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('register')">Start learning free →</button>
+        <button class="btn-ghost"  onclick="showPage('employer-dash')">Hire our graduates</button>
+      </div>
+      <div class="pipeline">
+        <div class="pipe-step">
+          <div class="pipe-icon learn">📚</div>
+          <div class="pipe-label">Learn</div>
+          <div class="pipe-sub">Expert-led courses</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-icon build">🛠️</div>
+          <div class="pipe-label">Build</div>
+          <div class="pipe-sub">Real-world projects</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-icon cert">🏅</div>
+          <div class="pipe-label">Get certified</div>
+          <div class="pipe-sub">Verified assessment</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-step">
+          <div class="pipe-icon hired">💼</div>
+          <div class="pipe-label">Get hired</div>
+          <div class="pipe-sub">Direct employer access</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">2,400+</div><div class="stat-lbl">Enrolled learners</div></div>
+    <div class="stat-item"><div class="stat-num">18</div><div class="stat-lbl">Skill tracks</div></div>
+    <div class="stat-item"><div class="stat-num">340+</div><div class="stat-lbl">Employer partners</div></div>
+    <div class="stat-item"><div class="stat-num">78%</div><div class="stat-lbl">Placement rate</div></div>
+  </div>
+
+  <!-- Skill Tracks -->
+  <section class="section-wrap">
+    <div class="section-inner">
+      <div class="section-eyebrow">Skill tracks</div>
+      <div class="section-title">Pick your path to employment</div>
+      <div class="section-sub">Each track is built around what Nigerian employers are actively hiring for — not what sounds good in theory.</div>
+      <div class="tracks-grid">
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">📱</span>
+          <div class="track-name">Digital Marketing</div>
+          <div class="track-meta">8 weeks · Beginner-friendly</div>
+          <div class="track-badge">High demand</div>
+        </div>
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">📊</span>
+          <div class="track-name">Data Analysis</div>
+          <div class="track-meta">10 weeks · Basic Excel required</div>
+          <div class="track-badge">Top paying</div>
+        </div>
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">💻</span>
+          <div class="track-name">Web Development</div>
+          <div class="track-meta">16 weeks · No experience needed</div>
+          <div class="track-badge green">Most enrolled</div>
+        </div>
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">🎨</span>
+          <div class="track-name">UI/UX Design</div>
+          <div class="track-meta">10 weeks · Beginner-friendly</div>
+          <div class="track-badge purple">Growing fast</div>
+        </div>
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">📒</span>
+          <div class="track-name">Bookkeeping & Finance</div>
+          <div class="track-meta">6 weeks · Beginner-friendly</div>
+          <div class="track-badge">High demand</div>
+        </div>
+        <div class="track-card" onclick="showPage('register')">
+          <span class="track-icon">🤝</span>
+          <div class="track-name">Sales & Business Dev</div>
+          <div class="track-meta">7 weeks · Beginner-friendly</div>
+          <div class="track-badge">High demand</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section-wrap bg-white">
+    <div class="section-inner">
+      <div class="section-eyebrow">How it works</div>
+      <div class="section-title">From zero to hired — step by step</div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">1</div>
+          <div class="how-title">Enroll in a track</div>
+          <div class="how-desc">Choose a skill area aligned to your goals. Pay once, access all modules, lessons, assignments, and resources inside.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-num">2</div>
+          <div class="how-title">Learn and build</div>
+          <div class="how-desc">Complete sequential lessons. Every module ends with a real assignment graded by your tutor — not just a quiz.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-num">3</div>
+          <div class="how-title">Pass the assessment</div>
+          <div class="how-desc">Sit a timed skills test. You need a passing score to earn your certificate. We mean it — no participation trophies here.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-num">4</div>
+          <div class="how-title">Connect to employers</div>
+          <div class="how-desc">Your verified profile — portfolio, assessment score, and certificate — is shown to employers actively hiring in your skill area.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-wrap bg-navy">
+    <div class="section-inner">
+      <div class="section-eyebrow">Success stories</div>
+      <div class="section-title on-dark">People who made the leap</div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-quote">"I had a degree in accounting but no job for 14 months. Three months after completing the Data Analysis track, I had two offers. The portfolio projects are what actually got me interviews."</div>
+          <div class="testi-author">
+            <div class="testi-avatar">AI</div>
+            <div><div class="testi-name">Aisha Ibrahim</div><div class="testi-role">Data Analyst · Kano</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"The Web Development track is intense but worth it. My capstone project — a real e-commerce site — is now live with paying customers. That's what sealed my job at a Lagos fintech."</div>
+          <div class="testi-author">
+            <div class="testi-avatar">EO</div>
+            <div><div class="testi-name">Emeka Okafor</div><div class="testi-role">Junior Developer · Lagos</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"As an employer, I used to waste weeks screening CVs. SkillBridge shows me candidates with verified scores and real portfolios. I hired three junior staff from here in the last six months."</div>
+          <div class="testi-author">
+            <div class="testi-avatar">FN</div>
+            <div><div class="testi-name">Fatima Nwosu</div><div class="testi-role">Head of People · TechBridge Ltd</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Employer CTA -->
+  <div style="padding: 0 2rem;">
+    <div class="emp-cta-banner">
+      <div>
+        <h2>Need verified talent?</h2>
+        <p>Browse pre-assessed graduates with real portfolios and verifiable certificates. Post a role in under 5 minutes and get matched to relevant candidates instantly.</p>
+      </div>
+      <button class="btn-navy" onclick="showPage('employer-dash')">Access the talent pool →</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:0"><span class="nav-logo-dot"></span>SkillBridge</div>
+        <p>Nigeria's talent pipeline — connecting serious learners with employers who need verified skill, not just credentials.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a onclick="showPage('register')">Browse courses</a></li>
+          <li><a onclick="showPage('register')">Skill tracks</a></li>
+          <li><a onclick="showPage('employer-dash')">For employers</a></li>
+          <li><a>Become a tutor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a>About us</a></li>
+          <li><a>How it works</a></li>
+          <li><a>Success stories</a></li>
+          <li><a>Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a>Terms of service</a></li>
+          <li><a>Privacy policy</a></li>
+          <li><a>Refund policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 SkillBridge. All rights reserved.</span>
+      <div style="display:flex;gap:1.25rem">
+        <a>Twitter</a><a>LinkedIn</a><a>Instagram</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ======================== LOGIN ======================== -->
+<div id="page-login" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <button class="auth-back" onclick="showPage('landing')">← Back to home</button>
+      <div class="auth-title">Welcome back</div>
+      <div class="auth-sub">Log in to continue your journey on SkillBridge.</div>
+      <div class="role-tabs" id="login-tabs">
+        <button class="role-tab active" onclick="setTab(this,'login-tabs')">Learner</button>
+        <button class="role-tab"        onclick="setTab(this,'login-tabs')">Employer</button>
+        <button class="role-tab"        onclick="setTab(this,'login-tabs')">Tutor</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-input" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="Enter your password">
+      </div>
+      <div class="forgot-link"><a>Forgot password?</a></div>
+      <button class="btn-full" onclick="loginRedirect()">Log in to dashboard</button>
+      <div class="auth-switch">Don't have an account? <a onclick="showPage('register')">Create one free</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== REGISTER ======================== -->
+<div id="page-register" class="page">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <button class="auth-back" onclick="showPage('landing')">← Back to home</button>
+      <div class="auth-title">Create your account</div>
+      <div class="auth-sub">Free to join. Pay only when you enroll in a skill track.</div>
+      <div class="role-tabs" id="reg-tabs">
+        <button class="role-tab active" onclick="setTab(this,'reg-tabs')">Learner</button>
+        <button class="role-tab"        onclick="setTab(this,'reg-tabs')">Employer</button>
+        <button class="role-tab"        onclick="setTab(this,'reg-tabs')">Tutor</button>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First name</label>
+          <input type="text" class="form-input" placeholder="Chidi">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last name</label>
+          <input type="text" class="form-input" placeholder="Osei">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-input" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone number</label>
+        <input type="tel" class="form-input" placeholder="+234 801 000 0000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">State</label>
+        <input type="text" class="form-input" placeholder="Lagos">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="Minimum 8 characters">
+        <div class="form-hint">At least 8 characters with one number.</div>
+      </div>
+      <button class="btn-full" onclick="showPage('student-dash')">Create account →</button>
+      <div class="auth-switch">Already have an account? <a onclick="showPage('login')">Log in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== STUDENT DASHBOARD ======================== -->
+<div id="page-student-dash" class="page">
+  <div class="dashboard-wrap">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">CO</div>
+        <div class="sidebar-name">Chidi Osei</div>
+        <div class="sidebar-role">Learner · Lagos</div>
+      </div>
+      <ul class="sidebar-nav">
+        <div class="sidebar-section">Learning</div>
+        <li><a class="active"><span class="nav-icon">🏠</span>Dashboard</a></li>
+        <li><a><span class="nav-icon">📚</span>My courses</a></li>
+        <li><a><span class="nav-icon">📝</span>Assignments</a></li>
+        <li><a><span class="nav-icon">🧪</span>Assessments</a></li>
+        <div class="sidebar-section">Career</div>
+        <li><a><span class="nav-icon">🗂️</span>My portfolio</a></li>
+        <li><a><span class="nav-icon">🏅</span>Certificates</a></li>
+        <li><a><span class="nav-icon">💼</span>Job board</a></li>
+        <div class="sidebar-section">Account</div>
+        <li><a><span class="nav-icon">👤</span>Profile</a></li>
+        <li><a onclick="showPage('landing')"><span class="nav-icon">←</span>Sign out</a></li>
+      </ul>
+    </aside>
+    <main class="main-area">
+      <div class="main-header">
+        <div>
+          <h1>Good morning, Chidi 👋</h1>
+          <p>You're 68% through your Digital Marketing track. You're ahead of schedule — keep it up.</p>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Courses enrolled</div>
+          <div class="metric-value">2</div>
+          <div class="metric-change up">↑ 1 this month</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Lessons completed</div>
+          <div class="metric-value">34</div>
+          <div class="metric-change up">↑ 6 this week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Assignments submitted</div>
+          <div class="metric-value">11</div>
+          <div class="metric-change muted">2 pending grading</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Certificates earned</div>
+          <div class="metric-value">1</div>
+          <div class="metric-change warn">1 in progress</div>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div class="col-main">
+
+          <!-- Active Courses -->
+          <div class="card">
+            <div class="card-title">Active courses <a>View all</a></div>
+            <div class="course-block">
+              <div class="course-header">
+                <div class="course-thumb dm">📱</div>
+                <div class="course-info">
+                  <div class="course-name">Digital Marketing</div>
+                  <div class="course-tutor">Tutor: Amaka Eze · 8 weeks</div>
+                  <div class="progress-bar"><div class="progress-fill" style="width:68%"></div></div>
+                  <div class="course-pct">68% complete · Module 5 of 8</div>
+                </div>
+              </div>
+              <button class="continue-btn">Continue — Module 5: Social Media Strategy</button>
+            </div>
+            <div class="course-block">
+              <div class="course-header">
+                <div class="course-thumb da">📊</div>
+                <div class="course-info">
+                  <div class="course-name">Data Analysis with Excel</div>
+                  <div class="course-tutor">Tutor: Emeka Adeyemi · 10 weeks</div>
+                  <div class="progress-bar"><div class="progress-fill green" style="width:25%"></div></div>
+                  <div class="course-pct">25% complete · Module 2 of 10</div>
+                </div>
+              </div>
+              <button class="continue-btn">Continue — Module 2: Pivot Tables & Charts</button>
+            </div>
+          </div>
+
+          <!-- Job Matches -->
+          <div class="card">
+            <div class="card-title">Job matches for you <a>Browse all</a></div>
+            <div class="job-item">
+              <div class="job-logo">BL</div>
+              <div style="flex:1;min-width:0">
+                <div class="job-title">Digital Marketing Executive</div>
+                <div class="job-company">BrightLabs Nigeria · Lagos (Hybrid)</div>
+                <div class="job-tags">
+                  <span class="job-tag match">✓ Skill match</span>
+                  <span class="job-tag">₦120k–₦180k/mo</span>
+                  <span class="job-tag">Entry level</span>
+                </div>
+              </div>
+              <button class="apply-btn">Apply</button>
+            </div>
+            <div class="job-item">
+              <div class="job-logo">FW</div>
+              <div style="flex:1;min-width:0">
+                <div class="job-title">Social Media Manager</div>
+                <div class="job-company">FoodWave · Remote</div>
+                <div class="job-tags">
+                  <span class="job-tag match">✓ Skill match</span>
+                  <span class="job-tag">₦80k–₦120k/mo</span>
+                  <span class="job-tag">Entry level</span>
+                </div>
+              </div>
+              <button class="apply-btn">Apply</button>
+            </div>
+            <div class="job-item">
+              <div class="job-logo">TK</div>
+              <div style="flex:1;min-width:0">
+                <div class="job-title">Content & Marketing Analyst</div>
+                <div class="job-company">Tradekey Africa · Abuja</div>
+                <div class="job-tags">
+                  <span class="job-tag">₦100k–₦150k/mo</span>
+                  <span class="job-tag">1yr exp preferred</span>
+                </div>
+              </div>
+              <button class="apply-btn">Apply</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-side">
+
+          <!-- Certificates -->
+          <div class="card">
+            <div class="card-title">My certificates</div>
+            <div class="cert-item">
+              <div class="cert-badge">🏅</div>
+              <div style="min-width:0">
+                <div class="cert-name">Copywriting Fundamentals</div>
+                <div class="cert-date">Issued 14 May 2025</div>
+              </div>
+              <div class="cert-score">92%</div>
+            </div>
+            <div class="cert-locked">
+              <div style="font-size:1.25rem">🔒</div>
+              <div>
+                <div class="cert-locked-title">Digital Marketing</div>
+                <div class="cert-locked-sub">Complete track to unlock</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Deadlines -->
+          <div class="card">
+            <div class="card-title">Upcoming deadlines</div>
+            <div class="upcoming-item">
+              <div class="upcoming-date">
+                <div class="upcoming-day">19</div>
+                <div class="upcoming-mon">Jun</div>
+              </div>
+              <div>
+                <div class="upcoming-title">Campaign brief assignment</div>
+                <div class="upcoming-course">Digital Marketing</div>
+                <span class="upcoming-badge due">Due in 6 days</span>
+              </div>
+            </div>
+            <div class="upcoming-item">
+              <div class="upcoming-date">
+                <div class="upcoming-day">24</div>
+                <div class="upcoming-mon">Jun</div>
+              </div>
+              <div>
+                <div class="upcoming-title">Module 2 quiz</div>
+                <div class="upcoming-course">Data Analysis</div>
+                <span class="upcoming-badge quiz">Quiz · 15 min</span>
+              </div>
+            </div>
+            <div class="upcoming-item">
+              <div class="upcoming-date">
+                <div class="upcoming-day">7</div>
+                <div class="upcoming-mon">Jul</div>
+              </div>
+              <div>
+                <div class="upcoming-title">Final assessment</div>
+                <div class="upcoming-course">Digital Marketing</div>
+                <span class="upcoming-badge assign">60 min · Graded</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module Progress -->
+          <div class="card">
+            <div class="card-title">Module progress <span class="sub">Digital Marketing</span></div>
+            <ul class="module-list">
+              <li class="module-item"><div class="module-check done">✓</div><div class="module-name done">Brand fundamentals</div><div class="module-dur">45m</div></li>
+              <li class="module-item"><div class="module-check done">✓</div><div class="module-name done">SEO & content strategy</div><div class="module-dur">1h 10m</div></li>
+              <li class="module-item"><div class="module-check done">✓</div><div class="module-name done">Email marketing</div><div class="module-dur">55m</div></li>
+              <li class="module-item"><div class="module-check done">✓</div><div class="module-name done">Paid advertising</div><div class="module-dur">1h 20m</div></li>
+              <li class="module-item"><div class="module-check active">●</div><div class="module-name" style="font-weight:600">Social media strategy</div><div class="module-dur">1h 5m</div></li>
+              <li class="module-item"><div class="module-check"></div><div class="module-name locked">Analytics & reporting</div><div class="module-dur">50m</div></li>
+              <li class="module-item"><div class="module-check"></div><div class="module-name locked">Campaign management</div><div class="module-dur">1h 30m</div></li>
+              <li class="module-item"><div class="module-check"></div><div class="module-name locked">Capstone project</div><div class="module-dur">Portfolio</div></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================== EMPLOYER DASHBOARD ======================== -->
+<div id="page-employer-dash" class="page">
+  <div class="dashboard-wrap">
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar amber">BL</div>
+        <div class="sidebar-name">BrightLabs Nigeria</div>
+        <div class="sidebar-role">Employer account · Verified ✓</div>
+      </div>
+      <ul class="sidebar-nav">
+        <div class="sidebar-section">Hiring</div>
+        <li><a class="active"><span class="nav-icon">🏠</span>Dashboard</a></li>
+        <li><a><span class="nav-icon">🔍</span>Find candidates</a></li>
+        <li><a><span class="nav-icon">📋</span>Job postings</a></li>
+        <li><a><span class="nav-icon">⭐</span>Saved candidates</a></li>
+        <li><a><span class="nav-icon">📥</span>Applications</a></li>
+        <div class="sidebar-section">Account</div>
+        <li><a><span class="nav-icon">🏢</span>Company profile</a></li>
+        <li><a onclick="showPage('landing')"><span class="nav-icon">←</span>Sign out</a></li>
+      </ul>
+    </aside>
+    <main class="main-area">
+      <div class="main-header">
+        <div>
+          <h1>Talent pool</h1>
+          <p>Verified SkillBridge graduates matched to your open roles.</p>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap">+ Post a job</button>
+      </div>
+
+      <div class="emp-metrics">
+        <div class="metric-card">
+          <div class="metric-label">Open roles</div>
+          <div class="metric-value">3</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Applicants this week</div>
+          <div class="metric-value">14</div>
+          <div class="metric-change up">↑ 5 vs last week</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Saved candidates</div>
+          <div class="metric-value">7</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Hires via SkillBridge</div>
+          <div class="metric-value">2</div>
+          <div class="metric-change up">This quarter</div>
+        </div>
+      </div>
+
+      <!-- Candidate recommendations -->
+      <div class="card" style="margin-bottom:1.5rem">
+        <div class="card-title">Recommended graduates <a>View all</a></div>
+        <div style="font-size:0.8125rem;color:var(--slate-light);margin:-0.75rem 0 1rem">Matched to: Digital Marketing Executive</div>
+        <div class="cand-grid">
+
+          <div class="cand-card">
+            <div class="cand-header">
+              <div class="cand-avatar" style="background:#E0E7FF;color:#4338CA">AI</div>
+              <div style="flex:1;min-width:0">
+                <div class="cand-name">Aisha Ibrahim</div>
+                <div class="cand-location">📍 Kano · Open to relocation</div>
+              </div>
+              <div class="cand-status verified">Certified</div>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill">SEO</span>
+              <span class="skill-pill">Content</span>
+              <span class="skill-pill">Meta Ads</span>
+              <span class="skill-pill">Analytics</span>
+            </div>
+            <div>
+              <div class="score-label" style="font-size:0.75rem;color:var(--slate-light);margin-bottom:5px">Assessment score</div>
+              <div class="score-row">
+                <div class="score-bar-bg"><div class="score-bar-fill" style="width:91%"></div></div>
+                <div class="score-num">91%</div>
+              </div>
+            </div>
+            <div class="cand-actions">
+              <button class="btn-outline">View portfolio</button>
+              <button class="btn-solid">Contact</button>
+            </div>
+          </div>
+
+          <div class="cand-card">
+            <div class="cand-header">
+              <div class="cand-avatar" style="background:#FFF4E0;color:#92500A">TO</div>
+              <div style="flex:1;min-width:0">
+                <div class="cand-name">Taiwo Ojo</div>
+                <div class="cand-location">📍 Lagos · On-site preferred</div>
+              </div>
+              <div class="cand-status verified">Certified</div>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill">Social Media</span>
+              <span class="skill-pill">Email</span>
+              <span class="skill-pill">Copywriting</span>
+            </div>
+            <div>
+              <div class="score-label" style="font-size:0.75rem;color:var(--slate-light);margin-bottom:5px">Assessment score</div>
+              <div class="score-row">
+                <div class="score-bar-bg"><div class="score-bar-fill" style="width:85%"></div></div>
+                <div class="score-num">85%</div>
+              </div>
+            </div>
+            <div class="cand-actions">
+              <button class="btn-outline">View portfolio</button>
+              <button class="btn-solid">Contact</button>
+            </div>
+          </div>
+
+          <div class="cand-card">
+            <div class="cand-header">
+              <div class="cand-avatar" style="background:var(--green-pale);color:#065F46">BN</div>
+              <div style="flex:1;min-width:0">
+                <div class="cand-name">Bola Nwachukwu</div>
+                <div class="cand-location">📍 Abuja · Remote preferred</div>
+              </div>
+              <div class="cand-status pending">In progress</div>
+            </div>
+            <div class="skill-pills">
+              <span class="skill-pill">SEO</span>
+              <span class="skill-pill">Content</span>
+              <span class="skill-pill">Branding</span>
+            </div>
+            <div>
+              <div class="score-label" style="font-size:0.75rem;color:var(--slate-light);margin-bottom:5px">Assessment score</div>
+              <div class="score-row">
+                <div class="score-bar-bg"><div class="score-bar-fill" style="width:0%"></div></div>
+                <div class="score-num" style="color:var(--slate-light)">Pending</div>
+              </div>
+            </div>
+            <div class="cand-actions">
+              <button class="btn-outline">View portfolio</button>
+              <button class="btn-solid disabled" disabled>Contact</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Active job postings -->
+      <div class="card">
+        <div class="card-title">Active job postings <a>+ Post new role</a></div>
+        <table class="jobs-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Applicants</th>
+              <th>Shortlisted</th>
+              <th>Status</th>
+              <th>Posted</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600">Digital Marketing Executive</td>
+              <td>9</td>
+              <td>3</td>
+              <td><span class="status-pill open">Open</span></td>
+              <td>3 Jun 2025</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Frontend Developer (Junior)</td>
+              <td>5</td>
+              <td>1</td>
+              <td><span class="status-pill open">Open</span></td>
+              <td>8 Jun 2025</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">Data Analyst</td>
+              <td>12</td>
+              <td>4</td>
+              <td><span class="status-pill draft">Draft</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ======================== JAVASCRIPT ======================== -->
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  var target = document.getElementById('page-' + name);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+}
+
+function setTab(el, groupId) {
+  var group = document.getElementById(groupId);
+  group.querySelectorAll('.role-tab').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  el.classList.add('active');
+}
+
+function loginRedirect() {
+  var tabs = document.getElementById('login-tabs');
+  var active = tabs.querySelector('.role-tab.active');
+  var role = active ? active.textContent.trim() : 'Learner';
+  if (role === 'Employer') {
+    showPage('employer-dash');
+  } else {
+    showPage('student-dash');
+  }
+}
+
+function toggleMobileMenu() {
+  var menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('open');
+}
+
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// Apply buttons — simple toggle to "Applied"
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('apply-btn') && !e.target.classList.contains('applied')) {
+    e.target.textContent = '✓ Applied';
+    e.target.classList.add('applied');
+  }
+});
+</script>
+
+</body>
+</html>
